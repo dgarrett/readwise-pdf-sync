@@ -12,7 +12,6 @@ headers = {
     'Accept': 'application/json',
     'Cookie': Cookie,
     'Referer': 'https://readwise.io/import/pdf/',
-    'Content-Type': 'multipart/form-data; boundary=--------------------------005826398629307083381548'
 }
 
 pdf_page = requests.request('GET', pdf_page_url, headers=headers)
