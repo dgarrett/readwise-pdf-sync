@@ -4,13 +4,34 @@ import requests
 import re
 import sys
 import time
-from secrets import Cookie
+# from secrets import Cookie
+import os.path, time
 
 start_time = int(time.time() * 1000)
 
 pdf_page_url = 'https://readwise.io/import/pdf/'
 upload_api_url = 'https://readwise.io/api/upload_misc_file'
 result_api_url = 'https://readwise.io/api/sync_status'
+
+file = sys.argv[1]
+
+with open('timestamp.txt', 'w') as f:
+    print(f'start time {start_time}')
+    f.write(f'{start_time}')
+
+path = sys.argv[1]
+list_of_files = []
+
+for root, dirs, files in os.walk(path):
+    for file in files:
+        list_of_files.append(os.path.join(root,file))
+
+for name in list_of_files:
+    print(name)
+    mod_time = int(os.path.getmtime(file) * 1000)
+    create_time = int(os.path.getctime(file) * 1000)
+    print(f'raw modified: {mod_time}')
+    print(f'raw create: {create_time}')
 
 headers = {
     'Accept': 'application/json',
@@ -67,3 +88,4 @@ num_books = len(result_response_json["userBooks"])
 print(f'Uploaded {num_books} book(s)')
 for book in result_response_json['userBooks']:
     print(f'Finished uploading "{book["book_data__title"]}" by "{book["book_data__author"]}"')
+
