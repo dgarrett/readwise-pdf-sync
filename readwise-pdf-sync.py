@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-# Testing online editor
-
 import requests
 import re
 import sys
